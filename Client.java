@@ -13,10 +13,10 @@ public class Client {
             new Thread(new IncomingMessageHandler(socket)).start();
             
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            Scanner scanner = new Scanner(System.in);
-            
-            while (scanner.hasNextLine()) {
-                out.println(scanner.nextLine());
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (scanner.hasNextLine()) {
+                    out.println(scanner.nextLine());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
